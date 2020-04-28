@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    <ion-title>
+      Filmes Populares
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-card *ngFor="let filme of lista_filmes">
+      <ion-card-header>
+        <ion-img [src]="'https://image.tmdb.org/t/p/w200'+filme.backdrop_path"></ion-img>
+        <ion-card-subtitle>{{filme.release_date | date: 'dd/MM/yyyy'}}</ion-card-subtitle>
+        <ion-card-title>{{filme.title}}</ion-card-title>
+      </ion-card-header>
+  
+      <ion-card-content>
+        {{filme.overview}}
+      </ion-card-content>
+    </ion-card>
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Carregando mais Filmes..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>
